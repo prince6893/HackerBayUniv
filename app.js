@@ -8,10 +8,11 @@ app.use(bodyParser.urlencoded({
 }));
 var requestData;
 app.get('/', function (req, res) {
-console.log("pass");
-res.status(200);
-res.send();
+  console.log("pass");
+  res.status(200);
+  res.json({status:"success"})
 });
+
 app.post('/data', function (req, res) {
 //console.log(req);
 console.log("Request Body : ");
