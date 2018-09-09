@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('Hackerbay', 'postgres', 'postgres', {
+const sequelize = new Sequelize('HackerBay', 'root', 'root', {
   host: 'localhost',
   dialect: 'postgres',
   operatorsAliases: false,
@@ -15,7 +15,7 @@ sequelize
   .authenticate()
   .then(() => {
     console.log(
-      `Successfully connected to localhost database as postgres user.`
+      `Successfully connected to localhost database as root user.`
     );
   })
   .catch(err => {
