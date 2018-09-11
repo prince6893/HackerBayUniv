@@ -33,7 +33,6 @@ passport.use(
                 expiresIn: 3000000
               });
 
-              // Authentication successful. This populate "req.user" with this details.
               return done(null, { token });
             }
           });

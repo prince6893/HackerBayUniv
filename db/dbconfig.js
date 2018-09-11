@@ -1,8 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize('HackerBay', 'root', 'root', {
-  host: 'localhost',
+  
   dialect: 'postgres',
-  operatorsAliases: false,
 
   pool: {
     max: 5,
