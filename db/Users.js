@@ -1,5 +1,4 @@
 const bcrypt = require("bcrypt");
-
 module.exports = (sequelize, DataTypes) =>
   sequelize.define("users", {
     id: {

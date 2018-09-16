@@ -1,10 +1,10 @@
 var express = require('express');
-var app = express();
 var bodyParser = require('body-parser');
 var passport = require('passport');
-var User = require('./db/passportConfig');
 var bcrypt = require('bcrypt');
+var User = require('./db/passportConfig');
 require('./db/dbconfig');
+var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
@@ -19,13 +19,11 @@ app.post('/user/signup', function (req, res) {
   }
   bcrypt.genSalt(10, function (err, salt) {
     if (err) {
-      
       return next(err);
     }
     bcrypt.hash(req.body.password, salt, function (err, hash) {
       if (err) {
-
-        return next(err);
+        console.log(err);
       }
       var password = hash;
       var newUser = User.build({
