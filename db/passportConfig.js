@@ -16,28 +16,25 @@ passport.use(
       passwordField: "password",
       passReqToCallback: true,
     },
-    (req, email, password, done) => {
+    ( email, password, done) => {
       User.findOne({ where: { email } })
         .then(user => {
           if (!user) {
             return done(null, false, "Error : User doesn't exist.");
           }
-
           bcrypt.compare(password, user.password, (err, isMatch) => {
             if (err || !isMatch) {
               return done(null, false, "Error : Invalid password.");
             }
-
             if (isMatch) {
-              const token = jwt.sign({ id: user.id }, config.jwt.secretKey, {
+              const token = jwt.sign({ id: user.id }, "winterIsComing", {
                 expiresIn: 3000000
               });
-
               return done(null, { token });
             }
           });
         })
-        .catch(err => done("Error : Database Error"));
+        .catch(err => console.log("DataBase error ==== ",err));
     }
   )
 );
