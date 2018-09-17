@@ -11,6 +11,14 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(passport.initialize());
+var requestData;
+
+app.get('/', function (req, res) {
+  console.log("pass");
+  res.status(200);
+  res.json({status:"success"})
+});
+
 app.post('/user/signup', function (req, res) {
 //console.log(req);
 if(!req.body.email || !req.body.password){
@@ -49,10 +57,14 @@ bcrypt.genSalt(10, function (err, salt) {
     })
   });
 });
+
+console.log("Request Body : ");
+console.log(req.body);
+requestData=req.body.data;
+
 });
 
 app.post('/user/login',(req, res, next) => {
-  console.log("In Login Request !");
   passport.authenticate(
     "local",
     {
@@ -68,6 +80,12 @@ app.post('/user/login',(req, res, next) => {
     }
   )(req, res, next);
 });
+app.get('/data', function (req, res) {
+res.status(200);
+res.send({data:requestData});
+});
+
+
 
 app.listen(3003, function () {
   console.log('Example app listening on port 3003!');

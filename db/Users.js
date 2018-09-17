@@ -1,5 +1,3 @@
-const bcrypt = require("bcrypt");
-
 module.exports = (sequelize, DataTypes) =>
   sequelize.define("users", {
     id: {
@@ -24,15 +22,4 @@ module.exports = (sequelize, DataTypes) =>
         notEmpty: true
       }
     }
-  },{
-    freezeTableName: true,
-    instanceMethods: {
-        generateHash(password) {
-            return bcrypt.hash(password, bcrypt.genSaltSync(8));
-        },
-        validPassword(password) {
-            return bcrypt.compare(password, this.password);
-        }
-    }
-  }
-);
+});
