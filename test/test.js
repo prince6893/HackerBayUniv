@@ -2,6 +2,7 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 let should = chai.should();
 let expect = chai.expect;
+let User = require('../db/Users.js');
 let server = require('../app.js');
 chai.use(chaiHttp);
 // test description
@@ -75,7 +76,14 @@ describe('My tests', () => {
         })
     })
 })
+
 describe('Tests for task 2', () => {
+    before(() => {
+        // This function empties de database
+        User.destroy({
+            where: {},
+            truncate: true
+        })
 
     describe('POST user/signup', () => {
         it('should sign a user', done => {
@@ -94,4 +102,5 @@ describe('Tests for task 2', () => {
             })
         })
     })
+})
 })
