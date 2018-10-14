@@ -7,7 +7,7 @@ sequelize
   .authenticate()
   .then(() => {
     console.log(
-      `Successfully connected to localhost database as root user.`
+      `Successfully connected to localhost database as hackerbay user.`
     );
   })
   .catch(err => {
