@@ -5,6 +5,7 @@ var passport = require('passport');
 var User = require('./db/passportConfig');
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
+require('dotenv').config();
 require('./db/dbconfig');
 app.use( bodyParser.json() );      
 app.use(bodyParser.urlencoded({    

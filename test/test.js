@@ -1,3 +1,4 @@
+process.env.NODE_ENV = 'test';
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let should = chai.should();
@@ -39,7 +40,7 @@ describe('second test', () => {
             expect(res.status).to.equal(200);
             expect(res.body).to.be.a('object');
             expect(res.body).to.deep.equal({ data: "Any String"})
-            // done should be called to finish the test
+           
             done();
         })
     })
@@ -57,7 +58,7 @@ describe('third test', () => {
             expect(res.status).to.equal(200);
             expect(res.body).to.be.a('object');
             expect(res.body).to.deep.equal({ data: "Any String"})
-            // done should be called to finish the test
+            
             done();
         })
     })
@@ -78,12 +79,20 @@ describe('My tests', () => {
 })
 
 describe('Tests for task 2', () => {
-    before(() => {
-        // This function empties de database
-        User.destroy({
-            where: {},
-            truncate: true
-        })
+        before(done => {
+            User.destroy({
+                where: {},
+                truncate: true
+            })
+            .then(() => {
+                // After we empty our database we create one user for our login test
+                User.create({
+                    email: 'test@mail.com',
+                    password: '123456'
+                })
+                .then(() => done());
+            });
+    });
 
     describe('POST user/signup', () => {
         it('should sign a user', done => {
@@ -91,7 +100,7 @@ describe('Tests for task 2', () => {
             chai.request(server)
             .post('/user/signup')
             .send({
-                email: 'test@test.com',
+                email: 'test@.com',
                 password: '123456'
             })
             .end((err, res) => {
@@ -100,6 +109,21 @@ describe('Tests for task 2', () => {
                 expect(res.body).to.have.property('session');
                 done();
             })
+        })
+    })
+describe('POST user/login', () => {
+    it('should login a user', done => {
+        chai.request(server)
+        .post('/user/login')
+        .send({
+            email: 'test@mail.com',
+            password: '123456'
+        })
+        .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(res.body).to.be.a('object');
+            expect(res.body).to.have.property('session');
+            done();
         })
     })
 })
