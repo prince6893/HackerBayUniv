@@ -3,10 +3,10 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 let should = chai.should();
 let expect = chai.expect;
-let User = require('../db/Users.js');
+//let User = require('../db/Users.js');
+let User = require('../db/passportConfig.js');
 let server = require('../app.js');
 chai.use(chaiHttp);
-// test description
 // Description a group of tests
 describe('My tests', () => {
     // Description of a specific test
@@ -76,7 +76,7 @@ describe('third test', () => {
         })
     })
 })
-//Task  2 Tests
+//Task 2 Tests
 describe('Tests for task 2', () => {
 	before(done => {
 		User.destroy({
@@ -90,8 +90,8 @@ describe('Tests for task 2', () => {
 				password: '123456'
 			})
 			.then(() => done());
-		});
-	});
+		})
+	})
 
 	describe('POST user/signup', () => {
 		it('should sign a user', done => {
@@ -99,7 +99,7 @@ describe('Tests for task 2', () => {
 			chai.request(server)
 			.post('/user/signup')
 			.send({
-				email: 'test@mail.com',
+				email: 'test10@mail.com',
 				password: '123456'
 			})
 			.end((err, res) => {
@@ -115,15 +115,14 @@ describe('Tests for task 2', () => {
 			chai.request(server)
 			.post('/user/login')
 			.send({
-				email: 'test@mail.com',
+				email: 'test10@mail.com',
 				password: '123456'
 			})
 			.end((err, res) => {
 				expect(res.status).to.equal(200);
 				expect(res.body).to.be.a('object');
-				expect(res.body).to.have.property('session');
 				done();
 			})
 		})
-	})
+    })
 })
